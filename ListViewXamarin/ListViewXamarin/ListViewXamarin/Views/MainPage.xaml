@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:local="clr-namespace:ListViewXamarin"
+                 xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                 x:Class="ListViewXamarin.MainPage" Padding="{OnPlatform iOS='0,40,0,0'}">
+    
+    <ContentPage.BindingContext>
+        <local:EmployeeViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:DateConverter x:Key="converter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <syncfusion:SfListView x:Name="listView" ItemSpacing="1" AutoFitMode="Height" ItemsSource="{Binding EmployeeInfo}">
+                <syncfusion:SfListView.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid RowSpacing="0">
+                            <Grid RowSpacing="0" BackgroundColor="Gray" >
+                                <Label Text="{Binding Converter={StaticResource converter}}" FontSize="30" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                                       TextColor="White"/>
+                            </Grid>
+                            <Grid RowSpacing="0" BackgroundColor="LightGray" Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Grid RowSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="100" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Text="Employee" Margin="15,0,0,0"/>
+                                    <Label Grid.Column="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Text="Check In"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </syncfusion:SfListView.HeaderTemplate>
+                <syncfusion:SfListView.ItemTemplate >
+                    <DataTemplate>
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="1" />
+                            </Grid.RowDefinitions>
+                            <Grid RowSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding EmployeeImage}" VerticalOptions="Center" HorizontalOptions="Center"
+                                       HeightRequest="50" WidthRequest="50"/>
+                                <Grid Grid.Column="1">
+                                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Text="{Binding EmployeeName}" FontSize="20"/>
+                                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Text="{Binding Designation}" Grid.Row="1" FontSize="13" TextColor="Gold"/>
+                                </Grid>
+                                <Label Grid.Column="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Text="{Binding CheckIn, StringFormat='{0:hh:mm tt}'}"/>
+                            </Grid>
+                            <StackLayout Grid.Row="1" BackgroundColor="Black"/>
+                        </Grid>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
